@@ -1,0 +1,209 @@
+
+<!DOCTYPE html>
+<html lang class="loading">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>JavaScript-事件(一) &amp; 事件流 - kikiBlog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <meta name="keywords" content="77号大花衣,"> 
+    <meta name="description" content="JavaScript 与 HTML 之间的交互是通过事件实现的。事件: 就是文档或浏览器窗口中发生的一些特定的交互瞬间。
+
+事件最早是在 IE3 和 Netscape Navigator2 中出现的,"> 
+    <meta name="author" content="kiki"> 
+    <link rel="alternative" href="atom.xml" title="kikiBlog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/css/diaspora.css">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-8691406134231910",
+              enable_page_level_ads: true
+         });
+    </script>
+    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
+</head>
+</html>
+<body class="loading">
+    <span id="config-title" style="display:none">kikiBlog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;" data-url="http://kiki.com"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">JavaScript-事件(一) & 事件流</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class="main">
+        <h1 class="title">JavaScript-事件(一) & 事件流</h1>
+        <div class="stuff">
+            <span>五月 15, 2019</span>
+            
+
+        </div>
+        <div class="content markdown">
+            <p>JavaScript 与 HTML 之间的<strong>交互</strong>是通过<strong>事件</strong>实现的。<br><strong>事件</strong>: 就是文档或浏览器窗口中发生的一些特定的交互瞬间。</p>
+<blockquote>
+<p>事件最早是在 IE3 和 Netscape Navigator2 中出现的，当时是作为分担服务器运算负载的一种手段</p>
+</blockquote>
+<h2 id="事件流"><a href="#事件流" class="headerlink" title="事件流"></a>事件流</h2><blockquote>
+<p>事件流描述的是从页面中<strong>接收事件的顺序</strong>。</p>
+</blockquote>
+<p><strong>起因</strong>：当浏览器发展到第四代的时候(IE4及Netscape Communicator 4)，浏览器开发团队遇到一个很有意思的问题：</p>
+<p>到底页面的哪一部分会拥有某个特定的事件？要理解这个问题，我们可以想象这样一个场景：</p>
+<p>在一张纸上画一组同心圆，如果你把手指放在圆心上，那么你的手指指向的不是一个圆，而是纸上的所有圆。</p>
+<p>两家浏览器公司一致认为：</p>
+<p>如果你单击了某个按钮，在单击按钮的同时，你也单击了包裹按钮的容器元素，甚至还单击了整个页面。</p>
+<blockquote>
+<p>有意思的是，IE 和 Netscape 开发团队提出了完全相反的事件流的概念。<br>IE 的事件流是<strong>事件冒泡流</strong><br>Nescape Communicator 的事件流是<strong>事件捕获流</strong></p>
+</blockquote>
+<h3 id="事件冒泡"><a href="#事件冒泡" class="headerlink" title="事件冒泡"></a>事件冒泡</h3><blockquote>
+<p>IE的事件流叫做事件冒泡（<strong>event bubbling</strong>）,<br>即事件开始时由被点击的元素接收，然后逐级向上传播到其它父节点</p>
+</blockquote>
+<h4 id="举个栗子："><a href="#举个栗子：" class="headerlink" title="举个栗子："></a>举个栗子：</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Event Bubbling Example<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"myExa"</span>&gt;</span>Click Me<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>如果你单击了页面中的<code>&lt;div&gt;</code>元素，那么这个 click事件 会按照如下顺序传播：</p>
+<ul>
+<li><code>&lt;div&gt;</code></li>
+<li><code>&lt;body&gt;</code></li>
+<li><code>&lt;html&gt;</code></li>
+<li><code>document</code></li>
+</ul>
+<p>也就是说，click事件 首先在<code>&lt;div&gt;</code>元素上发生，而这个元素就是单击的元素。<br>然后,click事件沿DOM树向上传播，在每一级节点上都会发生，直至传播到document对象。看图<br><img src="/2019/05/15/JS-事件篇(一)/1.png" alt="事件冒泡"></p>
+<blockquote>
+<p>现在所有现代浏览器都支持事件冒泡，但在具体实现上还是有一些差别。IE5.5 及更早版本中的事件冒泡会跳过<code>&lt;html&gt;</code>元素（ 从<code>&lt;body&gt;</code>直接跳到 document ）。IE9、Firefox、Chrome 和 Safari 则将事件一直冒泡到<strong>window</strong>对象</p>
+</blockquote>
+<h3 id="事件捕获"><a href="#事件捕获" class="headerlink" title="事件捕获"></a>事件捕获</h3><blockquote>
+<p>Netscape Communicator团队提出的另一种事件流叫做事件捕获(event capturing)。</p>
+</blockquote>
+<p>事件捕获的思想是不太具体的节点（比较远的祖先节点）应该更早接收到事件，而最具体的节点（被点击的元素）应该最后接收到事件。</p>
+<p>事件捕获的用意在于在事件到达<strong>预定目标</strong>（被点击的元素）之前捕获它。</p>
+<h4 id="举个栗子：-1"><a href="#举个栗子：-1" class="headerlink" title="举个栗子："></a>举个栗子：</h4><p>例如跟之前一样的 HTML 页面</p>
+<p>那么单击<code>&lt;div&gt;</code>元素就会以下列顺序触发click事件</p>
+<ul>
+<li><code>document</code></li>
+<li><code>&lt;html&gt;</code></li>
+<li><code>&lt;body&gt;</code></li>
+<li><code>&lt;div&gt;</code><br>在事件捕获中，<strong>document</strong>对象首先接收到 click事件，然后事件<strong>沿DOM树依次向下</strong>，一直传播到事件的实际目标，即<code>&lt;div&gt;</code>元素。看图<br><img src="/2019/05/15/JS-事件篇(一)/2.png" alt="事件捕获"></li>
+</ul>
+<h3 id="DOM事件流"><a href="#DOM事件流" class="headerlink" title="DOM事件流"></a>DOM事件流</h3><p>“DOM2级事件”规定的事件流包括三个阶段：</p>
+<ol>
+<li><strong>事件捕获阶段</strong>-首先发生的是事件捕获，为截获事件提供了机会。</li>
+<li><strong>处于目标阶段</strong>-然后是实际的目标接收到事件</li>
+<li><strong>事件冒泡阶段</strong>-最后一个阶段是冒泡阶段，可以在这个阶段对事件作出响应。</li>
+</ol>
+<h4 id="举个例子："><a href="#举个例子：" class="headerlink" title="举个例子："></a>举个例子：</h4><p>还是之前的 HTML 为例，单击<code>&lt;div&gt;</code>元素会按照下图所示顺序触发事件<br><img src="/2019/05/15/JS-事件篇(一)/3.png" alt="事件捕获"><br>在DOM事件流中，实际的目标( <code>&lt;div&gt;</code>元素 )在捕获阶段不会接收到事件。</p>
+<p>这意味着在捕获阶段，事件从<strong>document</strong>到<code>&lt;html&gt;</code>再到<code>&lt;body&gt;</code>后就停止了。下一个阶段是”处于目标”阶段，于是事件在<code>&lt;div&gt;</code>上发生，并在事件处理中被堪称冒泡阶段的一部分。然后，冒泡阶段发生，事件又传播回文档。</p>
+<p>多数支持DOM事件流的浏览器都实现了一种特定行为；<br>即使”DOM2级事件”规范明确要求捕获阶段不会涉及事件目标，但IE9、Safari、Chrome、Firefox和Opera9.5及更高版本都会在捕获阶段触发事件对象。结果，就是有两个机会在目标对象上面操作事件。</p>
+<blockquote>
+<p>IE9、Opera、Firefox、Chrome 和 Safari都支持DOM事件流,IE8及更早版本不支持DOM事件流</p>
+</blockquote>
+<hr>
+<p><em>文章参考《JavaSript高级程序设计》</em></p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src>
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        <li title="0" data-url="http://link.hhtjim.com/163/5146554.mp3"></li>
+                    
+                        <li title="1" data-url="http://link.hhtjim.com/qq/001faIUs4M2zna.mp3"></li>
+                    
+                </ul>
+            
+        </div>
+    </div>
+    
+        <div class="side">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#事件流"><span class="toc-number">1.</span> <span class="toc-text">事件流</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#事件冒泡"><span class="toc-number">1.1.</span> <span class="toc-text">事件冒泡</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#举个栗子："><span class="toc-number">1.1.1.</span> <span class="toc-text">举个栗子：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#事件捕获"><span class="toc-number">1.2.</span> <span class="toc-text">事件捕获</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#举个栗子：-1"><span class="toc-number">1.2.1.</span> <span class="toc-text">举个栗子：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DOM事件流"><span class="toc-number">1.3.</span> <span class="toc-text">DOM事件流</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#举个例子："><span class="toc-number">1.3.1.</span> <span class="toc-text">举个例子：</span></a></li></ol></li></ol></li></ol>
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>
