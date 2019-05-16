@@ -1,0 +1,184 @@
+
+<!DOCTYPE html>
+<html lang class="loading">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>JavaScript-事件(二) &amp; 事件处理程序 - kikiBlog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <meta name="keywords" content="77号大花衣,"> 
+    <meta name="description" content="事件就是用户或浏览器自身执行的某种动作。例如 click load mouseover 等，这些都是事件的名字。响应某个事件的函数就叫做事件处理程序（或事件侦听器）。事件处理程序的名字以”on”开头,"> 
+    <meta name="author" content="kiki"> 
+    <link rel="alternative" href="atom.xml" title="kikiBlog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/css/diaspora.css">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-8691406134231910",
+              enable_page_level_ads: true
+         });
+    </script>
+    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
+</head>
+</html>
+<body class="loading">
+    <span id="config-title" style="display:none">kikiBlog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;" data-url="http://kiki.com"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">JavaScript-事件(二) & 事件处理程序</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class="main">
+        <h1 class="title">JavaScript-事件(二) & 事件处理程序</h1>
+        <div class="stuff">
+            <span>五月 17, 2019</span>
+            
+
+        </div>
+        <div class="content markdown">
+            <p>事件就是用户或浏览器自身执行的某种动作。<br>例如 click load mouseover 等，这些都是事件的名字。<br>响应某个事件的函数就叫做<strong>事件处理程序</strong>（或<strong>事件侦听器</strong>）。<br>事件处理程序的名字<strong>以”on”开头</strong>。<br>因此 click 事件的事件处理程序就是 onclick，load 事件的处理程序就是 onload<br>为事件指定处理程序的方式有多种</p>
+<h2 id="HTML事件处理程序"><a href="#HTML事件处理程序" class="headerlink" title="HTML事件处理程序"></a>HTML事件处理程序</h2><blockquote>
+<p>某个元素支持的每种事件，都可以使用一个与相应事件处理程序同名的 HTML 特性来指定。<br>这个特性的值应该是能够执行的JS代码</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"ClickMe"</span> <span class="attr">onclick</span>=<span class="string">"alert('Clicked')"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>单击这个按钮的时候，会显示一个提示框。<br>介个操作是通过<strong>指定 onclick 特性</strong>，并将一些<strong>JS代码作为它的值</strong>来定义的。<br>由于这个值是个JS代码，因此不能在其中使用未经转译的HTML语法字符（如：&amp; “ &lt; &gt; ）。<br>为了避免使用HTML实体，这里使用单引号，如果想用双引号，代码改成如下：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"ClickMe"</span> <span class="attr">onclick</span>=<span class="string">"alert(&amp;quot;Clicked&amp;quot;)"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>在 HTML 中定义的事件处理程序可以包含要执行的具体动作，也可以调用在页面其他地方定义的脚本，如下<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">  function showMessage() &#123;</span></span><br><span class="line"><span class="undefined">    alert("Hi,kiki");</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"ClickMe"</span> <span class="attr">onclick</span>=<span class="string">"showMessage()"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>在介个栗子中，单击按钮就会<strong>调用showMessage()</strong>函数。</p>
+<p>这个函数是在一个独立的<code>&lt;script&gt;</code>元素中定义的，也可以写在一个外部文件中。</p>
+<p>事件处理程序中的代码在执行时，有权访问全局作用域中的任何代码。</p>
+<p>这样指定事件处理程序有一个独到之处:</p>
+<p>首先，会创建一个封装着元素属性值的函数。</p>
+<p>这个函数中有一个<strong>局部变量event</strong>,也就是<strong>事件对象</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 输出 "click" --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"ClickMe"</span> <span class="attr">onclick</span>=<span class="string">"alert(event.type)"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>通过 event 变量，可以直接访问事件对象，你不用自己定义它，也不用从函数的参数列表中读取。<br>在这个函数内部，<strong>this值等于事件的目标元素</strong>，如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 输出 "ClickMe" --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"ClickMe"</span> <span class="attr">onclick</span>=<span class="string">"alert(this.value)"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>关于这个动态创建的函数，另一个有意思的地方是它扩展作用域的方式，在这个函数内部，可以像访问局部变量一样访问 document 及该元素本身的成员。这个函数使用 with 像下面这样扩展作用域<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">with</span>(<span class="built_in">document</span>) &#123;</span><br><span class="line">    <span class="keyword">with</span>(<span class="keyword">this</span>) &#123;</span><br><span class="line">      <span class="comment">// 元素属性值</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如此一来，事件处理程序要访问自己的属性就简单多了。<br>如果当前元素是一个表单输入元素，则作用域中还会包含访问表单元素（父元素）的入口，这个函数就变成了如下所示<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">with</span>(<span class="built_in">document</span>) &#123;</span><br><span class="line">    <span class="keyword">with</span>(<span class="keyword">this</span>.form) &#123;</span><br><span class="line">      <span class="keyword">with</span>(<span class="keyword">this</span>) &#123;</span><br><span class="line">        <span class="comment">// 元素属性值</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>实际上，这样扩展作用域的方式，无非就是想让事件处理程序无需引用表单元素就能访问其他表单字段，如下<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">"post"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">value</span>=<span class="string">""</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"Kiki Username"</span> <span class="attr">onclick</span>=<span class="string">"alert(username.value)"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>介个栗子中，单击按钮会显示文本框中的文本。值得注意的是，这里直接引用了 username 元素</p>
+<h3 id="事件处理程序的缺点"><a href="#事件处理程序的缺点" class="headerlink" title="事件处理程序的缺点"></a>事件处理程序的缺点</h3><ol>
+<li>时差问题<br>   页面加载完之后，JS代码还没加载完，就单击了按钮，这样就会引发错误<br>   为此，很多 HTML 事件处理程序都会被封装在一个 try-catch 块中，以便错误不会浮出水面，如下:</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"ClickMe"</span> </span></span><br><span class="line"><span class="tag">       <span class="attr">onclick</span>=<span class="string">"try(showMessage();)catch(ex)&#123;&#125;"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这样，如果在上个栗子中的 showMessage() 函数没有定义之前就单击了按钮，<br>用户将不会看到JS错误，因为在浏览器有机会处理错误之前，错误就被捕获了</p>
+<ol start="2">
+<li>这样的扩展事件处理程序的作用域链在不同浏览器中会导致不同结果</li>
+<li>HTML与JS代码紧密耦合。如果要更换事件处理程序，就要同时改动2个地方<br>这也是开发人员多数使用JS指定事件处理程序的原因</li>
+</ol>
+<h2 id="DOM0-级事件处理程序"><a href="#DOM0-级事件处理程序" class="headerlink" title="DOM0 级事件处理程序"></a>DOM0 级事件处理程序</h2><p>通过JS指定事件处理程序的传统方式，就是将一个函数赋值给一个事件处理程序属性。这种为事件处理程序赋值的方法是在第四代 Web 浏览器中出现的，而且至今仍然为所有现代浏览器所支持。<br>原因一是简单，二是具有跨浏览器的优势<br>要使用JS指定事件处理程序，首先必须取得一个操作的对象的引用<br>每个元素（包括 window 和 document）都有自己的事件处理程序属性，这些属性<strong>通常全部小写</strong>，例如 onclick。<br>将这种属性的值设置为一个函数，就可以指定事件处理程序，如下所示:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> btn = <span class="built_in">document</span>.getElementById(<span class="string">"myBtn"</span>);</span><br><span class="line">btn.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  alert(<span class="string">"Clicked"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>注意，在这些代码运行以前不会指定事件处理程序。<br>如果这些代码在页面中位于按钮后面，就有可能在一段时间内怎么单击都没有反应。</p>
+<p>使用 DOM0 级方法指定的事件处理程序被认为是元素的方法。<br>因此，这时候的事件处理程序是在元素的作用域中运行。换句话说，程序中的 this 指向当前元素，再来看一个栗子:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> btn = <span class="built_in">document</span>.getElementById(<span class="string">"myBtn"</span>);</span><br><span class="line">btn.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  alert(<span class="keyword">this</span>.id); <span class="comment">// "myBtn"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>单击按钮显示的是元素的ID，这个ID是通过 this.id 取得的。<br>不仅仅是ID，实际上可以在事件处理程序中<strong>通过this访问元素的任何属性和方法</strong>。<br>以这种方式添加的事件处理程序会在事件流的冒泡阶段被处理。<br>也可以删除通过 DOM0 级方法指定的事件处理程序，如下:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">btn.onclick = <span class="literal">null</span>; <span class="comment">// 删除事件处理程序</span></span><br></pre></td></tr></table></figure></p>
+<p>将事件处理程序设置为null之后，再单击按钮将不会有任何动作发生。<br><em>Tips：如果你使用 HTML 指定事件处理程序，那么 onclick 属性的值就是一个包含着在同名 HTML 特性中指定的代码的函数。<br>而将相应的属性设置为 null,也可以删除以这种方式指定的事件处理程序</em></p>
+<h2 id="DOM2级事件处理程序"><a href="#DOM2级事件处理程序" class="headerlink" title="DOM2级事件处理程序"></a>DOM2级事件处理程序</h2>
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src>
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        <li title="0" data-url="http://link.hhtjim.com/163/5146554.mp3"></li>
+                    
+                        <li title="1" data-url="http://link.hhtjim.com/qq/001faIUs4M2zna.mp3"></li>
+                    
+                </ul>
+            
+        </div>
+    </div>
+    
+        <div class="side">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#HTML事件处理程序"><span class="toc-number">1.</span> <span class="toc-text">HTML事件处理程序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#事件处理程序的缺点"><span class="toc-number">1.1.</span> <span class="toc-text">事件处理程序的缺点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DOM0-级事件处理程序"><span class="toc-number">2.</span> <span class="toc-text">DOM0 级事件处理程序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DOM2级事件处理程序"><span class="toc-number">3.</span> <span class="toc-text">DOM2级事件处理程序</span></a></li></ol>
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>
